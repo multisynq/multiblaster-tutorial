@@ -1,11 +1,11 @@
-# Croquet Multiblaster Tutorial 🚀
+# Multisynq Multiblaster Tutorial 🚀
 
 ![Screencapture](step9.gif)
 
-[🕹️ CLICK HERE TO PLAY 🕹️](https://croquet.github.io/multiblaster-tutorial/step9.html) – _then scan the QR code or share the generated session URL to invite other players._
+[🕹️ CLICK HERE TO PLAY 🕹️](https://multisynq.github.io/multiblaster-tutorial/step9.html) – _then scan the QR code or share the generated session URL to invite other players._
 
-Each HTML file in [this repository](https://github.com/croquet/multiblaster-tutorial/)
-contains an increasingly complete multiplayer game built using [Croquet](https://github.com/croquet/croquet).
+Each HTML file in [this repository](https://github.com/multisynq/multiblaster-tutorial/)
+contains an increasingly complete multiplayer game built using [Multisynq](https://multisynq.io).
 
 It's a 2D game, and its visuals are intentionally kept simple so that the code is more understandable.
 
@@ -16,14 +16,14 @@ They can also shoot blasts which cause asteroids to break up and vanish.
 Successful blasts increase the player's score, while colliding with an asteroid
 causes a ship to be destroyed and lose all points.
 
-**📖 Please use our [Documentation](https://multisynq.io/docs/croquet/) alongside this tutorial, and join our [Discord](https://multisynq.io/discord) for questions 🤔**
+**📖 Please use our [Documentation](https://multisynq.io/docs/client/) alongside this tutorial, and join our [Discord](https://multisynq.io/discord) for questions 🤔**
 
-## Step 0: Asteroids floating without Croquet 🪨≠🪨
+## Step 0: Asteroids floating without Multisynq 🪨≠🪨
 
-([full source code](https://github.com/croquet/multiblaster-tutorial/blob/main/step0.html))
-([run it](https://croquet.github.io/multiblaster-tutorial/step0.html))
+([full source code](https://github.com/multisynq/multiblaster-tutorial/blob/main/step0.html))
+([run it](https://multisynq.github.io/multiblaster-tutorial/step0.html))
 
-This is a non-Croquet app. It shows a few asteroids floating through space.
+This is a non-Multisynq app. It shows a few asteroids floating through space.
 If you run this in two windows, the asteroids will float differently.
 
 Each asteroid has an `x` and `y` position as well as an `a` angle.
@@ -64,36 +64,36 @@ for (const asteroid of asteroids) {
 
 This file has about 80 lines of code total.
 
-## Step 1: Asteroids synchronized with Croquet 🪨≡🪨
+## Step 1: Asteroids synchronized with Multisynq 🪨≡🪨
 
-([full source code](https://github.com/croquet/multiblaster-tutorial/blob/main/step1.html))
-([run it](https://croquet.github.io/multiblaster-tutorial/step1.html))
+([full source code](https://github.com/multisynq/multiblaster-tutorial/blob/main/step1.html))
+([run it](https://multisynq.github.io/multiblaster-tutorial/step1.html))
 
-This is the same app, but using a Croquet Model for the asteroids.
+This is the same app, but using a Multisynq Model for the asteroids.
 
 A session name and password is automatically appended to the URL.
 If you open that session URL in another window or on another device,
 the asteroids will float exactly the same in both.
 
 The app is devided into two parts: The "model" is the part that is synchronized
-by Croquet for all users. It is like a shared computer that all users directly
+by Multisynq for all users. It is like a shared computer that all users directly
 interact with. The other part is the "view", which displays the model to the user
 by drawing the asteroids on a canvas. These parts are subclassed from
-`Croquet.Model` and `Croquet.View`, respectively.
+`Multisynq.Model` and `Multisynq.View`, respectively.
 
-The last few lines instruct Croquet to join a session for a particular model and view class
-via `Croquet.Session.join()`. The name and password for this session are taken from
+The last few lines instruct Multisynq to join a session for a particular model and view class
+via `Multisynq.Session.join()`. The name and password for this session are taken from
 the current URL, or generated automatically using `autoSession()` and `autoPassword`.
 It also needs an API key. You should fetch your own key from [multisynq.io/coder](https://multisynq.io/coder/).
 
-This version has only 20 lines more than the non-Croquet one from step 0.
+This version has only 20 lines more than the non-Multisynq one from step 0.
 
 Notice that the computation looks exactly the same.
 _No special data structures need to be used._
 All models are synchronized between machines without any special markup.
 
 ```js
-class Asteroid extends Croquet.Model {
+class Asteroid extends Multisynq.Model {
 
     ...
 
@@ -115,12 +115,12 @@ this.future(50).move();
 ```
 inside of the `move()` method. This causes `move()` to be called again 50 ms in the future,
 similarly to the `timeout()` call in step 0.
-_Future messages are how you define an object's behavior over time in Croquet._
+_Future messages are how you define an object's behavior over time in Multisynq._
 
-Drawing happens exactly the same as in the non-Croquet case:
+Drawing happens exactly the same as in the non-Multisynq case:
 
 ```js
-class Display extends Croquet.View {
+class Display extends Multisynq.View {
 
     ...
 
@@ -152,8 +152,8 @@ because that would break the synchronization. See the next step for how to inter
 
 ## Step 2: Spaceships controlled by players 🕹️➡🚀
 
-([full source code](https://github.com/croquet/multiblaster-tutorial/blob/main/step2.html))
-([run it](https://croquet.github.io/multiblaster-tutorial/step2.html))
+([full source code](https://github.com/multisynq/multiblaster-tutorial/blob/main/step2.html))
+([run it](https://multisynq.github.io/multiblaster-tutorial/step2.html))
 
 This step adds interactive space ships.
 
@@ -161,7 +161,7 @@ For each player joining, another spaceship is created by subscribing to the sess
 `view-join` and `view-exit` events:
 
 ```js
-class Game extends Croquet.Model {
+class Game extends Multisynq.Model {
 
     init() {
         ...
@@ -187,7 +187,7 @@ Each ship subscribes to that player's input only, using the player's `viewId` as
 This is how the shared model can distinguish events sent from different user's views:
 
 ```js
-class Ship extends Croquet.Model {
+class Ship extends Multisynq.Model {
 
     init({ viewId }) {
         ...
@@ -249,9 +249,9 @@ document.onkeyup = (e) => {
 };
 ```
 
-In Croquet, publish and subscribe are used mainly to communicate events from the user's view to the shared model,
+In Multisynq, publish and subscribe are used mainly to communicate events from the user's view to the shared model,
 typically derived from user input. Unlike in other pub/sub systems you may be familiar with,
-Croquet's pub/sub is not used to synchronize changed values or to communicate between different devices.
+Multisynq's pub/sub is not used to synchronize changed values or to communicate between different devices.
 All communication is only between the local view and the shared model.
 
 Before joining the session, `makeWidgetDock()` enables a QR code widget in the lower left corner.
@@ -260,8 +260,8 @@ this code with a mobile device.
 
 ## Step 3: Firing a blaster 🕹️➡•••
 
-([full source code](https://github.com/croquet/multiblaster-tutorial/blob/main/step3.html))
-([run it](https://croquet.github.io/multiblaster-tutorial/step3.html))
+([full source code](https://github.com/multisynq/multiblaster-tutorial/blob/main/step3.html))
+([run it](https://multisynq.github.io/multiblaster-tutorial/step3.html))
 
 When pressing the space bar, a `"fire-blaster"` event is published.
 The ship subscribes to that event and creates a new blast that
@@ -301,8 +301,8 @@ move() {
 
 ## Step 4: Break up asteroids when hit by blasts 🪨➡💥
 
-([full source code](https://github.com/croquet/multiblaster-tutorial/blob/main/step4.html))
-([run it](https://croquet.github.io/multiblaster-tutorial/step4.html))
+([full source code](https://github.com/multisynq/multiblaster-tutorial/blob/main/step4.html))
+([run it](https://multisynq.github.io/multiblaster-tutorial/step4.html))
 
 In this step we add collision detection between the blasts and the asteroids.
 When hit, Asteroids split into two smaller chunks, or are destroyed completely.
@@ -360,8 +360,8 @@ And there is no network congestion even if hundreds of blasts are moving because
 
 ## Step 5: Turn ship into debris after colliding with asteroids 🚀➡💥
 
-([full source code](https://github.com/croquet/multiblaster-tutorial/blob/main/step5.html))
-([run it](https://croquet.github.io/multiblaster-tutorial/step5.html))
+([full source code](https://github.com/multisynq/multiblaster-tutorial/blob/main/step5.html))
+([run it](https://multisynq.github.io/multiblaster-tutorial/step5.html))
 
 Now we add collision between ships and asteroids, and turn both into debris which is floating for a while.
 
@@ -411,8 +411,8 @@ if (!wasHit) {
 
 ## Step 6: Score points when hitting an asteroid with a blast 💥➡🏆
 
-([full source code](https://github.com/croquet/multiblaster-tutorial/blob/main/step6.html))
-([run it](https://croquet.github.io/multiblaster-tutorial/step6.html))
+([full source code](https://github.com/multisynq/multiblaster-tutorial/blob/main/step6.html))
+([run it](https://multisynq.github.io/multiblaster-tutorial/step6.html))
 
 Add scoring for ships hitting an asteroid.
 When a blast is fired, we store a reference to the ship in the blast.
@@ -449,8 +449,8 @@ update() {
 
 ## Step 7: View-side animation smoothing 🤩
 
-([full source code](https://github.com/croquet/multiblaster-tutorial/blob/main/step7.html))
-([run it](https://croquet.github.io/multiblaster-tutorial/step7.html))
+([full source code](https://github.com/multisynq/multiblaster-tutorial/blob/main/step7.html))
+([run it](https://multisynq.github.io/multiblaster-tutorial/step7.html))
 
 Now we add render smoothing for 60 fps animation.
 The models move at 20 fps (because of the 50 ms future send
@@ -467,7 +467,7 @@ this.smoothing = new WeakMap();
 
 It maps from the model objects (asteroids, ships, blasts) to plain JS objects
 like `{x, y, a}` that are then used for rendering. Alternatively, we could create
-individual View classes for each Model class by subclassing `Croquet.View`,
+individual View classes for each Model class by subclassing `Multisynq.View`,
 but for this simple game that seems unnecessary. With the `WeakMap` approach
 we avoid having to track creation and destruction of model objects.
 
@@ -511,20 +511,20 @@ in animation quality.
 
 ## Step 8: Persistent table of highscores 🥇🥈🥉
 
-([full source code](https://github.com/croquet/multiblaster-tutorial/blob/main/step8.html))
-([run it](https://croquet.github.io/multiblaster-tutorial/step8.html))
+([full source code](https://github.com/multisynq/multiblaster-tutorial/blob/main/step8.html))
+([run it](https://multisynq.github.io/multiblaster-tutorial/step8.html))
 
-Now we add a persistent highscore. Croquet automatically snapshots the model data and
+Now we add a persistent highscore. Multisynq automatically snapshots the model data and
 keeps that session state even when everyone leaves the session. When you resume it later by joining the session, everything will continue just as before. That means a highscore table in the model would appear to be "persistent".
 
 However, whenever we change the model code, a new session is created, even it has the
-same name (internally, Croquet takes a hash of the registered model class source code).
+same name (internally, Multisynq takes a hash of the registered model class source code).
 The old session state becomes inaccessible, because for one we cannot know if the
 new code will work with the old state, but more importantly, every client in the session
 needs to execute exactly the same code to ensure determinism. Otherwise, different clients
 would compute different states, and the session would diverge.
 
-To keep important data from a previous session of the same name, we need to use Croquet's
+To keep important data from a previous session of the same name, we need to use Multisynq's
 explicit persistence. An app can call `persistSession()` with some JSON data to store
 that persistent state. When a new session is started (no snapshot exists) but there is
 some persisted data from the previous session of the same name, this will be passed
@@ -536,7 +536,7 @@ so players only have to type it once.
 
 ```js
 initials.onchange = () => {
-    localStorage.setItem("io.croquet.multiblaster.initials", initials.value);
+    localStorage.setItem("io.multisynq.multiblaster.initials", initials.value);
     this.publish(this.viewId, "set-initials", initials.value);
 }
 ```
@@ -544,8 +544,8 @@ initials.onchange = () => {
 On startup we check `localStorage` to automatically re-use the stored initials.
 
 ```js
-if (localStorage.getItem("io.croquet.multiblaster.initials")) {
-    initials.value = localStorage.getItem("io.croquet.multiblaster.initials");
+if (localStorage.getItem("io.multisynq.multiblaster.initials")) {
+    initials.value = localStorage.getItem("io.multisynq.multiblaster.initials");
     this.publish(this.viewId, "set-initials", initials.value);
 }
 ```
@@ -604,7 +604,7 @@ setHighscore(initials, score) {
 In a more complex application, you should design the JSON persistence
 format carefully, e.g. by including a version number so that future code
 versions can correctly interpret the data written by an older version.
-Croquet makes no assumptions about this, it only stores and retrieves
+Multisynq makes no assumptions about this, it only stores and retrieves
 that data.
 
 From this point on, even when you change the model code, the highscores
@@ -612,8 +612,8 @@ will always be there.
 
 ## Step 9: Support for mobile etc. 📱
 
-([full source code](https://github.com/croquet/multiblaster-tutorial/blob/main/step9.html))
-([run it](https://croquet.github.io/multiblaster-tutorial/step9.html))
+([full source code](https://github.com/multisynq/multiblaster-tutorial/blob/main/step9.html))
+([run it](https://multisynq.github.io/multiblaster-tutorial/step9.html))
 
 This is the finished tutorial game. It has some more features, like
 * support for mobile devices via touch input
@@ -624,7 +624,7 @@ This is the finished tutorial game. It has some more features, like
 * etc.
 
 We're not going to go into much detail here because all of these are independent
-of Croquet, it's more about playability and web UX.
+of Multisynq, it's more about playability and web UX.
 
 One cute thing is the "wrapped rendering". If an object is very close to the edge
 of the screen, its other "half" should be visible on the other side to maintain
@@ -655,7 +655,7 @@ drawWrapped(x, y, size, draw) {
 ## Advanced Game 🚀💋
 
 There's an even more polished game with some gimmicks at
-[github.com/croquet/multiblaster](https://github.com/croquet/multiblaster/).
+[github.com/multisynq/multiblaster](https://github.com/multisynq/multiblaster/).
 
 One of its gimmicks is that if the initials contain an emoji, it will be used for shooting. The trickiest part of that is properly parsing out the emoji, which can be composed of many code points 😉
 
@@ -663,4 +663,4 @@ You can play it online at [apps.multisynq.io/multiblaster](https://apps.multisyn
 
 ## Further Information 👀
 
-Please use our [Documentation](https://multisynq.io/docs/croquet/) alongside this tutorial, and join our [Discord](https://multisynq.io/discord) for questions!
+Please use our [Documentation](https://multisynq.io/docs/client/) alongside this tutorial, and join our [Discord](https://multisynq.io/discord) for questions!

@@ -2,7 +2,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-        <title>Croquet Multiblaster</title>
+        <title>Multiblaster</title>
         <style>
             html, body {
                 margin: 0;
@@ -16,13 +16,13 @@
                 max-height: 100%;
             }
         </style>
-        <script src="https://unpkg.com/@croquet/croquet@1.0"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@multisynq/client@1/bundled/multisynq-client.min.js"></script>
     </head>
     <body>
         <canvas id="canvas" width="1000" height="1000"></canvas>
         <script>
 
-class Game extends Croquet.Model {
+class Game extends Multisynq.Model {
     init() {
         this.asteroids = new Set();
         for (let i = 0; i < 3; i++) Asteroid.create({});
@@ -72,7 +72,7 @@ class Game extends Croquet.Model {
 }
 Game.register("Game");
 
-class Asteroid extends Croquet.Model {
+class Asteroid extends Multisynq.Model {
     get game() { return this.wellKnownModel("modelRoot"); }
 
     init({ size, x, y, a, dx, dy, da }) {
@@ -129,7 +129,7 @@ class Asteroid extends Croquet.Model {
 }
 Asteroid.register("Asteroid");
 
-class Ship extends Croquet.Model {
+class Ship extends Multisynq.Model {
     init({ viewId }) {
         super.init();
         this.viewId = viewId;
@@ -189,7 +189,7 @@ class Ship extends Croquet.Model {
 }
 Ship.register("Ship");
 
-class Blast extends Croquet.Model {
+class Blast extends Multisynq.Model {
     get game() { return this.wellKnownModel("modelRoot"); }
 
     init({x, y, dx, dy}) {
@@ -223,7 +223,7 @@ Blast.register("Blast");
 
 ////////////////////////// VIEW //////////////////////////
 
-class Display extends Croquet.View {
+class Display extends Multisynq.View {
     constructor(model) {
         super(model);
         this.model = model;
@@ -294,13 +294,11 @@ class Display extends Croquet.View {
     }
 }
 
-Croquet.App.makeWidgetDock(); // show QR code
+Multisynq.App.makeWidgetDock(); // show QR code
 
-Croquet.Session.join({
-    apiKey: '1_i65fcn11n7lhrb5n890hs3dhj11hfzfej57pvlrx', // get your own from croquet.io/keys
-    appId: 'io.croquet.multiblaster-tutorial',
-    name: Croquet.App.autoSession(),
-    password: Croquet.App.autoPassword(),
+Multisynq.Session.join({
+    apiKey: '234567_Paste_Your_Own_API_Key_Here_7654321', // get your own from multisynq.io/coder
+    appId: 'io.multisynq.multiblaster-tutorial',
     model: Game,
     view: Display,
 });
