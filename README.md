@@ -71,9 +71,15 @@ This file has about 80 lines of code total.
 
 This is the same app, but using a Multisynq Model for the asteroids.
 
-A session name and password is automatically appended to the URL.
+When you ttry it, a session name and password are automatically appended to the URL.
 If you open that session URL in another window or on another device,
 the asteroids will float exactly the same in both.
+
+The HTML imports the Multisynq client via a CDN. That way we don't need a bundler:
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/@multisynq/client@1.0.1/bundled/multisynq-client.min.js"></script>
+```
 
 The app is devided into two parts: The "model" is the part that is synchronized
 by Multisynq for all users. It is like a shared computer that all users directly
