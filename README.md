@@ -78,7 +78,7 @@ the asteroids will float exactly the same in both.
 The HTML imports the Multisynq client via a CDN. That way we don't need a bundler:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@multisynq/client@1.0.1/bundled/multisynq-client.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@multisynq/client@1.0.2/bundled/multisynq-client.min.js"></script>
 ```
 
 The app is devided into two parts: The "model" is the part that is synchronized
